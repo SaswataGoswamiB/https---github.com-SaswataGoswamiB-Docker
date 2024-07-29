@@ -1,0 +1,32 @@
+services:
+  mysql:
+    container_name: saswata_mysecond
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=saswata
+      - MYSQL_DATABASE=Saswata_Beni
+    ports:
+      - "8087:3306"
+    volumes:
+      - mysqlvol:/var/lib/mysql
+    networks:
+      - spring-boot-network
+
+  spring-boot-app:
+    container_name: spring-demo
+    image: soring/demo
+    ports:
+      - "8089:8080"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - mysql
+    
+  
+volumes:
+  mysqlvol:
+
+networks:
+  spring-boot-network:
+    driver: bridge
+    
